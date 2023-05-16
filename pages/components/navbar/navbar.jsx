@@ -35,7 +35,7 @@ export default function NavbarFun() {
                 style={{ fontFamily: "Poppins", fontWeight: "bold" }}
                 href="/daftar-komik/page/1"
               >
-                DAFTAR KOMIK
+                JADWAL RILIS
               </Nav.Link>
               <Nav.Link
                 className="text-light"
@@ -47,14 +47,14 @@ export default function NavbarFun() {
               <Nav.Link
                 className="text-light"
                 style={{ fontFamily: "Poppins", fontWeight: "bold" }}
-                href={`/komikk/manhwa/page/1`}
+                href={``}
               >
                 MANHWA
               </Nav.Link>
               <Nav.Link
                 className="text-light"
                 style={{ fontFamily: "Poppins", fontWeight: "bold" }}
-                href={`/komikk/manhua/page/1`}
+                href={``}
               >
                 MANHUA
               </Nav.Link>
