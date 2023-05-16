@@ -39,10 +39,8 @@ export default function Home() {
               >
                 <Card className="h-100">
                   <Card.Img variant="top" src={ongoingData.thumb} />
-                  <Card.ImgOverlay>
-                    <Badge bg="danger">{ongoingData.episode_name}</Badge>
-                  </Card.ImgOverlay>
                   <Card.Body>
+                    <Badge bg="danger">{ongoingData.episode_name}</Badge>
                     <Card.Title style={{ fontFamily: "Poppins" }}>
                       {ongoingData.name}
                     </Card.Title>
@@ -54,7 +52,7 @@ export default function Home() {
                     <Button
                       variant="danger"
                       style={{ fontFamily: "Poppins" }}
-                      href={`/`}
+                      href="https://github.com/"
                     >
                       Nonton sekarang!
                     </Button>
@@ -81,12 +79,10 @@ export default function Home() {
               >
                 <Card className="h-100">
                   <Card.Img variant="top" src={completeData.thumb} />
-                  <Card.ImgOverlay>
+                  <Card.Body>
                     <Badge bg="danger">{completeData.episode_name}</Badge>
                     {"\n"}
-                    <Badge bg="danger">{completeData.hari}</Badge>
-                  </Card.ImgOverlay>
-                  <Card.Body>
+                    <Badge bg="warning">{completeData.hari}</Badge>
                     <Card.Title style={{ fontFamily: "Poppins" }}>
                       {completeData.name}
                     </Card.Title>

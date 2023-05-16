@@ -42,28 +42,14 @@ export default function NavbarFun() {
                 style={{ fontFamily: "Poppins", fontWeight: "bold" }}
                 href={`/komikk/manga/page/1`}
               >
-                MANGA
+                DAFTAR ANIME
               </Nav.Link>
               <Nav.Link
                 className="text-light"
                 style={{ fontFamily: "Poppins", fontWeight: "bold" }}
-                href={``}
+                href={`https://komik.ryukoproject.app/`}
               >
-                MANHWA
-              </Nav.Link>
-              <Nav.Link
-                className="text-light"
-                style={{ fontFamily: "Poppins", fontWeight: "bold" }}
-                href={``}
-              >
-                MANHUA
-              </Nav.Link>
-              <Nav.Link
-                className="text-light"
-                style={{ fontFamily: "Poppins", fontWeight: "bold" }}
-                href={`/bookmark`}
-              >
-                BOOKMARK
+                KOMIK
               </Nav.Link>
             </Nav>
             <div className="d-flex" id="search">
