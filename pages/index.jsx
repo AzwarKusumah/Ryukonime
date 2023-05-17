@@ -1,9 +1,9 @@
-import Header from "../pages/components/head";
-import Navbar from "../pages/components/navbar/navbar";
 import { Container, Row, Col, Card, Button, Badge } from "react-bootstrap";
 import { MdOutlineFiberNew, MdBookmarkAdded } from "react-icons/md";
-import { fetchHome } from "../components/apiData";
+import { fetchHome } from "@/components/apiData";
 import { useEffect, useState } from "react";
+import Header from "../pages/components/head";
+import Navbar from "../pages/components/navbar/navbar";
 
 export default function Home() {
   const [ongoing, setOngoing] = useState([]);
@@ -12,6 +12,7 @@ export default function Home() {
     const res = await fetchHome();
     setOngoing(res.ongoing);
     setComplete(res.complete);
+    console.log(res.ongoing);
   }
 
   useEffect(() => {
@@ -52,7 +53,7 @@ export default function Home() {
                     <Button
                       variant="danger"
                       style={{ fontFamily: "Poppins" }}
-                      href="https://github.com/"
+                      href={`/${ongoingData.endpoint}`}
                     >
                       Nonton sekarang!
                     </Button>
@@ -89,7 +90,7 @@ export default function Home() {
                     <Button
                       variant="danger"
                       style={{ fontFamily: "Poppins" }}
-                      href={`/`}
+                      href={`/${completeData.endpoint}`}
                     >
                       Nonton sekarang!
                     </Button>
