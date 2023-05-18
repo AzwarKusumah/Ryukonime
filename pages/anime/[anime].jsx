@@ -4,17 +4,59 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Navbar from "../../pages/components/navbar/navbar";
 import Header from "../../pages/components/head";
-import { Container, Row, Col, Image, ListGroup } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Image,
+  ListGroup,
+  Table,
+  Button,
+} from "react-bootstrap";
 
 export default function AnimePage() {
   const [detailAnime, setDetailAnime] = useState([]);
+  const [epsAnimeFirst, setEpsAnimeFirst] = useState([]);
   const router = useRouter();
   const { anime } = router.query;
 
   async function getDetail() {
     const res = await fetchDetail(anime);
     setDetailAnime(res);
-    console.log(res);
+    const episode = EpsHandling(res.eps);
+    setEpsAnimeFirst(episode);
+  }
+
+  function EpsHandling(eps) {
+    const arr = [];
+    for (const e of eps) {
+      if (e.type == "list") {
+        console.log("error");
+      } else if (Array.isArray(e.data)) {
+        for (const episode of e.data) {
+          arr.push(
+            <tbody key={episode.title}>
+              <tr>
+                <td style={{ fontFamily: "Poppins", fontWeight: "bold" }}>
+                  {episode.title}
+                </td>
+                <td className="justify-content-end d-flex">
+                  <Button
+                    variant="danger"
+                    href={`/eps/${episode.endpoint}`}
+                    style={{ fontFamily: "Poppins" }}
+                  >
+                    Baca Komik
+                  </Button>
+                </td>
+              </tr>
+            </tbody>
+          );
+        }
+      }
+    }
+
+    return arr;
   }
 
   useEffect(() => {
@@ -31,16 +73,22 @@ export default function AnimePage() {
           <h1 style={{ fontFamily: "Poppins", fontWeight: "bold" }}>
             {detailAnime.main_title}
           </h1>
-          <Row gy={2} className="mb-5">
-            <Col md={4} className="mt-5">
+          <Row gy={2} className="mb-3">
+            <Col md={4} className="mt-4">
               <Image
                 src={detailAnime.thumb}
                 width={407}
                 height={578}
-                className="rounded"
+                className="rounded img-fluid d-none d-sm-block"
+              />
+              <Image
+                src={detailAnime.thumb}
+                width={207}
+                height={378}
+                className="rounded img-fluid d-block d-sm-none d-lg-none"
               />
             </Col>
-            <Col md={6} className="mt-5">
+            <Col md={6} className="mt-4">
               <ListGroup key={detailAnime.key}>
                 <ListGroup.Item>
                   <span style={{ fontFamily: "Poppins", fontWeight: "bold" }}>
@@ -105,6 +153,28 @@ export default function AnimePage() {
               </ListGroup>
             </Col>
           </Row>
+          <h3 style={{ fontFamily: "Poppins", fontWeight: "bold" }}>
+            {"Sinopsis:"}
+          </h3>
+          <p style={{ fontFamily: "Poppins" }}>{detailAnime.sinopsis}</p>
+          <hr />
+          <h2
+            style={{ fontFamily: "Poppins", fontWeight: "bold" }}
+            className="mt-5"
+          >
+            Episode List
+          </h2>
+          <div
+            className="mt-5"
+            style={{
+              overflow: "auto",
+              height: "500px",
+              position: "relative",
+              display: "block",
+            }}
+          >
+            <Table className="table mb-0">{epsAnimeFirst}</Table>
+          </div>
         </Container>
       </main>
     </div>

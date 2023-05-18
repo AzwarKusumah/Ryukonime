@@ -8,11 +8,11 @@ import Navbar from "../pages/components/navbar/navbar";
 export default function Home() {
   const [ongoing, setOngoing] = useState([]);
   const [complete, setComplete] = useState([]);
+
   async function getHomePage() {
     const res = await fetchHome();
     setOngoing(res.ongoing);
     setComplete(res.complete);
-    console.log(res.ongoing);
   }
 
   useEffect(() => {
