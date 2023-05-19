@@ -19,3 +19,11 @@ export async function fetchDetail(endpoint) {
   const data = res.json();
   return data;
 }
+
+export async function fetchDaftar() {
+  const res = await fetch(
+    "https://komi.katowproject.app/api/otakudesu/daftar-anime"
+  );
+  const data = res.json();
+  return data;
+}

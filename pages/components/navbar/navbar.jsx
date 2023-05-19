@@ -40,7 +40,7 @@ export default function NavbarFun() {
               <Nav.Link
                 className="text-light"
                 style={{ fontFamily: "Poppins", fontWeight: "bold" }}
-                href={`/komikk/manga/page/1`}
+                href={`/daftar-anime`}
               >
                 DAFTAR ANIME
               </Nav.Link>
