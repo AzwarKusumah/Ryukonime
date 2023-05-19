@@ -1,28 +1,28 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "./components/navbar/navbar";
 import Header from "./components/head";
-import { fetchDaftar } from "@/components/apiData";
+import { fetchJadwal } from "@/components/apiData";
 import { Row, Container, Col, ListGroup } from "react-bootstrap";
 
-export default function DaftarAnime() {
-  const [detailAnime, setDetailAnime] = useState([]);
+export default function Jadwalrilis() {
+  const [jadwalRilis, setJadwalRilis] = useState([]);
 
-  async function getDaftar() {
-    const res = await fetchDaftar();
-    const detail = DaftarHandle(res.anime_list);
-    setDetailAnime(detail);
+  async function getJadwalRilis() {
+    const res = await fetchJadwal();
+    const detail = JadwalHandle(res.schedule);
+    setJadwalRilis(detail);
   }
 
-  function DaftarHandle(res) {
+  function JadwalHandle(res) {
     const arr = [];
-    for (const d of res) {
+    for (const j of res) {
       arr.push(
         <h2 className="mb-2 mt-2" style={{ fontFamily: "Poppins" }}>
-          {d.name}
+          {j.day}
         </h2>
       );
-      if (Array.isArray(d.animes)) {
-        for (const e of d.animes) {
+      if (Array.isArray(j.animes)) {
+        for (const e of j.animes) {
           arr.push(
             <ListGroup key={e.name}>
               <ListGroup.Item
@@ -43,7 +43,7 @@ export default function DaftarAnime() {
   }
 
   useEffect(() => {
-    getDaftar();
+    getJadwalRilis();
   }, []);
 
   return (
@@ -53,13 +53,13 @@ export default function DaftarAnime() {
       <main>
         <div className="mb-3">
           <h2 style={{ fontFamily: "Poppins" }} className="container mt-5">
-            {"Daftar Anime"}
+            {"Jadwal Rilis"}
           </h2>
         </div>
         <Container>
           <hr />
           <Row>
-            <Col>{detailAnime}</Col>
+            <Col>{jadwalRilis}</Col>
           </Row>
         </Container>
       </main>

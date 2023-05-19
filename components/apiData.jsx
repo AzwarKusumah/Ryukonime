@@ -27,3 +27,11 @@ export async function fetchDaftar() {
   const data = res.json();
   return data;
 }
+
+export async function fetchJadwal() {
+  const res = await fetch(
+    "https://komi.katowproject.app/api/otakudesu/jadwal-rilis"
+  );
+  const data = res.json();
+  return data;
+}

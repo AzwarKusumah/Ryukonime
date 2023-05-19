@@ -33,7 +33,7 @@ export default function NavbarFun() {
               <Nav.Link
                 className="text-light"
                 style={{ fontFamily: "Poppins", fontWeight: "bold" }}
-                href="/daftar-komik/page/1"
+                href={`/jadwal-rilis`}
               >
                 JADWAL RILIS
               </Nav.Link>
