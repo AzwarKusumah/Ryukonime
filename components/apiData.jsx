@@ -35,3 +35,11 @@ export async function fetchJadwal() {
   const data = res.json();
   return data;
 }
+
+export async function fetchEpisode(episode) {
+  const res = await fetch(
+    `https://komi.katowproject.app/api/otakudesu/eps/${episode}`
+  );
+  const data = res.json();
+  return data;
+}

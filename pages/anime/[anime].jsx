@@ -43,7 +43,7 @@ export default function AnimePage() {
                 <td className="justify-content-end d-flex">
                   <Button
                     variant="danger"
-                    href={`/eps/${episode.endpoint}`}
+                    href={`/episode/${episode.endpoint}`}
                     style={{ fontFamily: "Poppins" }}
                   >
                     Nonton Anime!
