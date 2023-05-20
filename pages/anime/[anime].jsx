@@ -46,7 +46,7 @@ export default function AnimePage() {
                     href={`/eps/${episode.endpoint}`}
                     style={{ fontFamily: "Poppins" }}
                   >
-                    Baca Komik
+                    Nonton Anime!
                   </Button>
                 </td>
               </tr>
