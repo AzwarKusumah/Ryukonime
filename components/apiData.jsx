@@ -36,10 +36,11 @@ export async function fetchJadwal() {
   return data;
 }
 
-export async function fetchEpisode(episode) {
-  const res = await fetch(
-    `https://komi.katowproject.app/api/otakudesu/eps/${episode}`
-  );
+export async function fetchEpisode(episode, id) {
+  const url = id
+    ? `https://komi.katowproject.app/api/otakudesu/eps/${episode}/?id=${id}`
+    : `https://komi.katowproject.app/api/otakudesu/eps/${episode}`;
+  const res = await fetch(url);
   const data = res.json();
   return data;
 }

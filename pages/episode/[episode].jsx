@@ -3,26 +3,21 @@ import { useRouter } from "next/router";
 import { fetchEpisode } from "@/components/apiData";
 import Navbar from "../components/navbar/navbar";
 import Header from "../components/head";
-import {
-  Container,
-  Ratio,
-  Dropdown,
-  DropdownButton,
-  Button,
-  Table,
-} from "react-bootstrap";
+import { Container, Ratio, Dropdown, Button, Table } from "react-bootstrap";
 
 export default function Episode() {
   const [episodeAnime, setEpisodeAnime] = useState([]);
   const [downloadAnime, setDownloadAnime] = useState([]);
   const [dropdownOption, setDropdownOption] = useState([]);
+  const [selectedId, setSelectedId] = useState("");
   const router = useRouter();
-  const { episode } = router.query;
+  const { episode, id } = router.query;
 
   async function getEpisode() {
-    const res = await fetchEpisode(episode);
+    const res = await fetchEpisode(episode, id);
     const download = DownloadHandle(res.download_link);
     const dropdown = MirrorHandle(res.mirror_stream_link);
+    console.log(res.mirror_stream_link);
     setDropdownOption(dropdown);
     setEpisodeAnime(res);
     setDownloadAnime(download);
@@ -63,6 +58,18 @@ export default function Episode() {
     }
     return arr;
   }
+  const handleIdSelection = async (id) => {
+    setSelectedId(id);
+
+    // Bikin URL berdasarkan data.URL di dropdown
+    const url = `/episode/${episode}/?id=${id}`;
+    // Nempelin URL baru
+    router.push(url);
+    // Reload page berdasarkan waktu timeout
+    setTimeout(() => {
+      router.reload();
+    }, 0);
+  };
 
   function MirrorHandle(drop) {
     const arr = [];
@@ -73,7 +80,7 @@ export default function Episode() {
       if (Array.isArray(m.data)) {
         for (const data of m.data) {
           dropdownItems.push(
-            <Dropdown.Item key={data.title} href={`#/action-${data.id}`}>
+            <Dropdown.Item key={data.title} eventKey={data.url}>
               {data.title}
             </Dropdown.Item>
           );
@@ -83,8 +90,8 @@ export default function Episode() {
       }
 
       arr.push(
-        <Dropdown key={m.name}>
-          <Dropdown.Toggle variant="danger" id={`dropdown-basic-${m.id}`}>
+        <Dropdown key={m.name} onSelect={handleIdSelection}>
+          <Dropdown.Toggle variant="danger" id="dropdown-basic">
             {m.name}
           </Dropdown.Toggle>
           <Dropdown.Menu>{dropdownItems}</Dropdown.Menu>
@@ -97,7 +104,7 @@ export default function Episode() {
   useEffect(() => {
     if (!router.isReady) return;
     getEpisode();
-  }, [router.isReady]);
+  }, [router.isReady, selectedId]);
 
   return (
     <div>
