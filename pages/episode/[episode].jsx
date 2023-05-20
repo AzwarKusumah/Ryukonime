@@ -15,15 +15,17 @@ import {
 export default function Episode() {
   const [episodeAnime, setEpisodeAnime] = useState([]);
   const [downloadAnime, setDownloadAnime] = useState([]);
+  const [dropdownOption, setDropdownOption] = useState([]);
   const router = useRouter();
   const { episode } = router.query;
 
   async function getEpisode() {
     const res = await fetchEpisode(episode);
-    setEpisodeAnime(res);
     const download = DownloadHandle(res.download_link);
+    const dropdown = MirrorHandle(res.mirror_stream_link);
+    setDropdownOption(dropdown);
+    setEpisodeAnime(res);
     setDownloadAnime(download);
-    //console.log(res);
   }
 
   function DownloadHandle(link) {
@@ -36,13 +38,14 @@ export default function Episode() {
       );
       if (Array.isArray(d.data)) {
         for (const l of d.data) {
-          console.log(l);
           arr.push(
             <div className="table-responsive">
-              <Table className="table" striped>
+              <Table striped variant="dark">
                 <tbody>
                   <tr>
-                    <td style={{ fontFamily: "Poppins" }}>{l.title}</td>
+                    <td style={{ fontFamily: "Poppins", fontSize: "17px" }}>
+                      {l.title}
+                    </td>
                     <td className="justify-content-end d-flex">
                       <Button variant="danger" href={l.url}>
                         Download Anime
@@ -61,6 +64,36 @@ export default function Episode() {
     return arr;
   }
 
+  function MirrorHandle(drop) {
+    const arr = [];
+
+    for (const m of drop) {
+      const dropdownItems = [];
+
+      if (Array.isArray(m.data)) {
+        for (const data of m.data) {
+          dropdownItems.push(
+            <Dropdown.Item key={data.title} href={`#/action-${data.id}`}>
+              {data.title}
+            </Dropdown.Item>
+          );
+        }
+      } else {
+        console.log("error");
+      }
+
+      arr.push(
+        <Dropdown key={m.name}>
+          <Dropdown.Toggle variant="danger" id={`dropdown-basic-${m.id}`}>
+            {m.name}
+          </Dropdown.Toggle>
+          <Dropdown.Menu>{dropdownItems}</Dropdown.Menu>
+        </Dropdown>
+      );
+    }
+
+    return arr;
+  }
   useEffect(() => {
     if (!router.isReady) return;
     getEpisode();
@@ -90,26 +123,7 @@ export default function Episode() {
             <h3 style={{ fontFamily: "Poppins", fontWeight: "bold" }}>
               {"Mirror Link:"}
             </h3>
-            <DropdownButton
-              variant="danger"
-              id="dropdown-basic-button"
-              title="480p"
-              style={{ fontFamily: "Poppins" }}
-            >
-              <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-            </DropdownButton>
-            <DropdownButton
-              variant="danger"
-              id="dropdown-basic-button"
-              title="720p"
-              style={{ fontFamily: "Poppins" }}
-            >
-              <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-            </DropdownButton>
+            {dropdownOption}
           </div>
           <hr />
           {downloadAnime}
