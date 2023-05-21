@@ -11,6 +11,19 @@ import Link from "next/link";
 import Image from "next/image";
 
 export default function NavbarFun() {
+  function searchKeyUp(e) {
+    if (e.keyCode !== 13) return;
+    const form = document.getElementById("query");
+    const query = form.value;
+    window.location.href = "/search/" + query;
+  }
+
+  function search() {
+    const form = document.getElementById("query");
+    const query = form.value;
+    window.location.href = "/search/" + query;
+  }
+
   return (
     <div>
       <Navbar bg="danger" expand="lg">
@@ -59,8 +72,13 @@ export default function NavbarFun() {
                 className="me-2"
                 aria-label="Search"
                 id="query"
+                onKeyUp={searchKeyUp}
               />
-              <Button style={{ fontFamily: "Poppins" }} variant="light">
+              <Button
+                style={{ fontFamily: "Poppins" }}
+                variant="light"
+                onClick={search}
+              >
                 Search
               </Button>
             </div>
