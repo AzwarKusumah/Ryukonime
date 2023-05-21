@@ -17,7 +17,6 @@ export default function Episode() {
     const res = await fetchEpisode(episode, id);
     const download = DownloadHandle(res.download_link);
     const dropdown = MirrorHandle(res.mirror_stream_link);
-    console.log(res);
     setDropdownOption(dropdown);
     setEpisodeAnime(res);
     setDownloadAnime(download);

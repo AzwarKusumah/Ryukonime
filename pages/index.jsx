@@ -67,7 +67,7 @@ export default function Home() {
         <div className="mb-3">
           <h2 style={{ fontFamily: "Poppins" }} className="container mt-5">
             {"Complete Anime"}
-            <MdBookmarkAdded style={{ fontSize: "50px", color: "blue" }} />
+            <MdBookmarkAdded style={{ fontSize: "50px", color: "dark" }} />
           </h2>
         </div>
         <Container>
